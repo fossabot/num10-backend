@@ -1,6 +1,10 @@
 language: node_js
 node_js: lts/*
-script: echo "Pass test"
+script: 
+  - npm run build
+cache:
+  directories:
+    - "node_modules"
 deploy:
   provider: heroku
   api_key:
