@@ -18,12 +18,14 @@
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "jest": "^23.2.0",
     "node-sass": "^4.9.0",
     "nodemon": "^1.17.5"
   },
   "scripts": {
     "start": "parcel index.html --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "parcel build index.html",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
