@@ -1,7 +1,6 @@
 language: node_js
 node_js: lts/*
-install: true
-test: echo "Pass test"
+script: echo "Pass test"
 deploy:
   provider: heroku
   api_key:
