@@ -4,7 +4,7 @@ import actions from "./actions";
 
 const view = (state, actions) => (
   <div>
-    <h1>Hello</h1>
+    <h1>Hello test1</h1>
   </div>
 );
 
