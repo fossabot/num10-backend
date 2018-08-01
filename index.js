@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const compression = require("compression");
 const passport = require("passport")
-const { PORT } = require("./constants");
 const { router } = require("./api");
 const app = express();
 
@@ -17,4 +16,4 @@ app.use(passport.initialize());
 
 app.use("/api/v1", router);
 
-app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+app.listen(4000, () => console.log(`Running on port ${4000}`));

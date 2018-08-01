@@ -6,6 +6,7 @@ const {
   GOOGLE_CLIENT_SECRET,
   CALLBACK_URL
 } = require("../../constants");
+const { Users } = require("../../firebase/users");
 
 passport.use(
   new GoogleStrategy(
@@ -15,7 +16,15 @@ passport.use(
       callbackURL: CALLBACK_URL
     },
     function(accessToken, refreshToken, profile, done) {
-      done(null, accessToken);
+      const { id, displayName, photos } = profile;
+
+      Users.getUser(id).then(data => {
+        if (!!data) {
+          done(null, user)
+        } else {
+          Users.createUser(id, displayName, photos[0].value);
+        }
+      });
     }
   )
 );
