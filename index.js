@@ -1,10 +1,20 @@
 const express = require("express");
-
+const helmet = require("helmet");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const compression = require("compression");
+const passport = require("passport")
+const { PORT } = require("./constants");
+const { router } = require("./api");
 const app = express();
-const port = process.env.PORT || 4000
 
-app.get("/", (req, res) => {
-  return res.json({ a: "Hello" });
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
+app.use(compression());
+app.use(helmet());
+app.use(passport.initialize());
 
-app.listen(port, () => console.log(`Running on port ${port}`));
+app.use("/api/v1", router);
+
+app.listen(PORT, () => console.log(`Running on port ${PORT}`));
