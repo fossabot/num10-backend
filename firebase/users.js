@@ -1,9 +1,10 @@
 const { db } = require("./firebase");
 
 exports.Users = {
-  async createUser(id, name, imageUrl) {
+  async createUser(id, name, email, imageUrl) {
     return await db.ref(`users/${id}`).set({
       name: name,
+      email: email,
       image: imageUrl
     });
   },
