@@ -8,10 +8,20 @@ exports.Users = {
     });
   },
 
+  async getListUser() {
+    return await db
+      .ref("/users/")
+      .once("value", snapshot => snapshot);
+  },
+
   async getUser(id) {
     return await db
       .ref(`/users/${id}`)
       .once("value")
       .then(snapshot => snapshot.val());
+  },
+
+  async updateUser(updates) {
+    return await db.ref().update(updates);
   }
 };
