@@ -7,7 +7,7 @@ const passport = require("passport");
 const cookieSession = require("cookie-session");
 const { router } = require("./api");
 const app = express();
-const { SECRET_COOKIE } = require("./constants");
+const { SECRET_COOKIE, PORT } = require("./constants");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -25,6 +25,5 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/v1", router);
-app.get("/test", (req, res) => res.json({ test: "test" }));
 
-app.listen(4000, () => console.log(`Running on port ${4000}`));
+app.listen(PORT, () => console.log(`Running on port ${PORT}`));

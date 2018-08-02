@@ -58,9 +58,6 @@ google.get(
     scope: ["https://www.googleapis.com/auth/plus.login"]
   })
 );
-google.get("/test", (req, res) => {
-  return res.json({ test: "ok" });
-});
 
 google.get("/callback", passport.authenticate("google"), function(req, res) {
   return res.json({ user: req.user });
