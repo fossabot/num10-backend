@@ -22,8 +22,9 @@ app.use(
   })
 );
 app.use(passport.initialize());
-app.use(passport.session())
+app.use(passport.session());
 
 app.use("/api/v1", router);
+app.get("/test", (req, res) => res.json({ test: "test" }));
 
 app.listen(4000, () => console.log(`Running on port ${4000}`));
