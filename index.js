@@ -3,7 +3,6 @@ const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const compression = require("compression");
-const passport = require("passport");
 const cookieSession = require("cookie-session");
 const { router } = require("./api");
 const app = express();
@@ -21,8 +20,6 @@ app.use(
     maxAge: 24 * 60 * 60 * 1000 * 7
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use("/api/v1", router);
 
