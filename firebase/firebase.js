@@ -13,7 +13,7 @@ admin.initializeApp({
     type: "service_account",
     project_id: PROJECT_ID,
     private_key_id: PRIVATE_KEY_ID,
-    private_key: PRIVATE_KEY,
+    private_key: JSON.parse(PRIVATE_KEY),
     client_email: CLIENT_EMAIL,
     client_id: CLIENT_ID,
     auth_uri: "https://accounts.google.com/o/oauth2/auth",
