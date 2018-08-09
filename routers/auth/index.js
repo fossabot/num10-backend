@@ -5,7 +5,7 @@ const { Users } = require("../../firebase/users");
 
 auth.post("/login", (req, res) => {
   const client = new OAuth2Client(CLIENT_SIGN_IN_ID);
-  const { token, name, image, email } = req.body;
+  const { token } = req.body;
 
   const ticket = client
     .verifyIdToken({
