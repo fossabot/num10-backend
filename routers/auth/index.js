@@ -1,4 +1,5 @@
 const auth = require("express").Router();
+const lodash = require("lodash");
 const { OAuth2Client } = require("google-auth-library");
 const { CLIENT_SIGN_IN_ID } = require("../../constants");
 const { Users } = require("../../firebase/users");
@@ -17,15 +18,29 @@ auth.post("/login", (req, res) => {
 
       Users.getUser(payload.sub).then(user => {
         if (user) {
-          res.json({ user: user });
+          const updates = {
+            email: payload.email,
+            name: payload.name,
+            image: payload.picture
+          };
+          const oldUser = lodash.pick(user, ["name", "email", "image"]);
+
+          if (lodash.isEqual(updates, oldUser)) {
+            return res.json({ status: true });
+          } else {
+            Users.updateUser(payload.sub, updates)
+              .then(user => res.json({ status: true }))
+              .catch(error => res.json({ error: error }));
+          }
         } else {
-          Users.createUser(
-            payload.sub,
-            payload.name,
-            payload.email,
-            payload.picture
-          )
-            .then(user => res.json({ user: user }))
+          const data = {
+            name: payload.name,
+            email: payload.email,
+            image: payload.picture
+          };
+
+          Users.createUser(payload.sub, data)
+            .then(user => res.json({ status: true }))
             .catch(error => res.json({ error: error }));
         }
       });

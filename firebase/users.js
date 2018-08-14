@@ -1,18 +1,12 @@
 const { db } = require("./firebase");
 
 exports.Users = {
-  async createUser(id, name, email, imageUrl) {
-    return await db.ref(`users/${id}`).set({
-      name: name,
-      email: email,
-      image: imageUrl
-    });
+  async createUser(id, data) {
+    return await db.ref(`users/${id}`).set(data);
   },
 
   async getListUser() {
-    return await db
-      .ref("/users/")
-      .once("value", snapshot => snapshot);
+    return await db.ref("/users/").once("value", snapshot => snapshot);
   },
 
   async getUser(id) {
@@ -22,7 +16,10 @@ exports.Users = {
       .then(snapshot => snapshot.val());
   },
 
-  async updateUser(updates) {
-    return await db.ref().update(updates);
+  async updateUser(id, updates) {
+    return await db
+      .ref('users')
+      .child(id)
+      .update(updates);
   }
 };
