@@ -7,6 +7,7 @@ const cookieSession = require("cookie-session");
 const { router } = require("./api");
 const app = express();
 const { SECRET_COOKIE, PORT } = require("./constants");
+const { checkToken } = require("./middlewares");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -20,6 +21,8 @@ app.use(
     maxAge: 24 * 60 * 60 * 1000 * 7
   })
 );
+
+app.use(checkToken);
 
 app.use("/api/v1", router);
 
