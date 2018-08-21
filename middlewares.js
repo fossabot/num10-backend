@@ -6,11 +6,9 @@ exports.checkToken = (req, res, next) => {
   const authorization = headers.authorization;
 
   if (authorization && authorization.split(" ")[0] === "Bearer") {
-    const authorizations = authorization.split(" ")[1];
-
     client
       .verifyIdToken({
-        idToken: authorizations[1],
+        idToken: authorization.split(" ")[1],
         audience: CLIENT_SIGN_IN_ID
       })
       .then(data => {

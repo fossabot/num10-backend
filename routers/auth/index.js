@@ -22,7 +22,7 @@ auth.post("/login", (req, res) => {
           return res.json({ status: true });
         } else {
           Users.updateUser(payload.sub, updates)
-            .then(user => res.json({ status: true }))
+            .then(() => res.json({ status: true }))
             .catch(error => res.json({ error: error }));
         }
       } else {
@@ -33,7 +33,7 @@ auth.post("/login", (req, res) => {
         };
 
         Users.createUser(payload.sub, data)
-          .then(user => res.json({ status: true }))
+          .then(() => res.json({ status: true }))
           .catch(error => res.json({ error: error }));
       }
     })
