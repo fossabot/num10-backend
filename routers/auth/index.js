@@ -1,10 +1,7 @@
 const auth = require("express").Router();
 const lodash = require("lodash");
 const { Users } = require("../../firebase/users");
-const { SENDGRID_API_KEY } = require("../../constants");
-const { generateEmailTemplate } = require("./email-template");
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(SENDGRID_API_KEY);
+const { sendEmail } = require("./utils");
 
 auth.post("/login", (req, res) => {
   const { userData } = req;
@@ -35,14 +32,8 @@ auth.post("/login", (req, res) => {
           email: payload.email,
           image: payload.picture
         };
-        const msg = {
-          to: payload.email,
-          from: "phongduong@num10.space",
-          subject: "Dang nhap Num10 thanh cong",
-          html: generateEmailTemplate(payload.name)
-        };
 
-        sgMail.send(msg);
+        sendEmail(payload.email, payload.name);
         Users.createUser(payload.sub, data)
           .then(() => res.json({ status: true }))
           .catch(error => res.json({ error: error }));
